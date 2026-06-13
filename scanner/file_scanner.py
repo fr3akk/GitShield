@@ -46,4 +46,4 @@ def scan_file(file_path, rules):
             f"Error scanning {file_path}: {error}"
         )
 
-    return []
+    return findings

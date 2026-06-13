@@ -9,13 +9,18 @@ EXCLUDED_DIRS = {
     "__pycache__",
     "node_modules",
     "dist",
-    "build"
-    "output"
+    "build",
+    "output",
+    "examples"
 }
 
 EXCLUDED_FILES = {
-    "requirements.txt"
+    
+    "requirements.txt",
+    "entropy_detector.py",
+    "file_scanner.py"
 }
+
 
 def scan_repository(repo_path, rules):
 
@@ -29,9 +34,11 @@ def scan_repository(repo_path, rules):
         ]
 
         for file in files:
+
             if file in EXCLUDED_FILES:
+                print(f"Skipping: {file}")
                 continue
-            
+                
             file_path = os.path.join(
                 root,
                 file
