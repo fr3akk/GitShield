@@ -18,7 +18,8 @@ EXCLUDED_FILES = {
     
     "requirements.txt",
     "entropy_detector.py",
-    "file_scanner.py"
+    "file_scanner.py",
+    "README.md"
 }
 
 
