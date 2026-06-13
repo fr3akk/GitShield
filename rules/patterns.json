@@ -1,0 +1,26 @@
+{
+    "AWS Access Key": {
+        "pattern": "AKIA[0-9A-Z]{16}",
+        "severity": "Critical"
+    },
+
+    "GitHub Token": {
+        "pattern": "ghp_[A-Za-z0-9]{36}",
+        "severity": "Critical"
+    },
+
+    "OpenAI API Key": {
+        "pattern": "sk-[A-Za-z0-9]{20,}",
+        "severity": "Critical"
+    },
+
+    "Password Assignment": {
+        "pattern": "password\\s*=\\s*[\"'].*[\"']",
+        "severity": "High"
+    },
+
+    "API Key Assignment": {
+        "pattern": "api_key\\s*=\\s*[\"'].*[\"']",
+        "severity": "High"
+    }
+}

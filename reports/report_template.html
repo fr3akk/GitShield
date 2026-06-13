@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GitShield Security Report</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #dddddd;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h1>GitShield Security Report</h1>
+
+<h2>Summary</h2>
+
+<ul>
+    <li>Critical: {{ critical }}</li>
+    <li>High: {{ high }}</li>
+    <li>Medium: {{ medium }}</li>
+</ul>
+
+<h2>Findings</h2>
+
+<table>
+
+<tr>
+    <th>Type</th>
+    <th>Severity</th>
+    <th>Match</th>
+    <th>File</th>
+</tr>
+
+{% for finding in findings %}
+
+<tr>
+
+<td>{{ finding.type }}</td>
+
+<td>{{ finding.severity }}</td>
+
+<td>{{ finding.match }}</td>
+
+<td>{{ finding.file }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+api_key = "auth-service-key"
