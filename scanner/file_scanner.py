@@ -38,10 +38,12 @@ def scan_file(file_path, rules):
 
             findings.append(finding)
 
-    except Exception as error:
+    except UnicodeDecodeError:
+        return []
 
-        print(
+    except Exception as error:
+            print(
             f"Error scanning {file_path}: {error}"
         )
 
-    return findings
+    return []
