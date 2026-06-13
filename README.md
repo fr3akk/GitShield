@@ -305,13 +305,6 @@ This reduces false positives and improves scanning performance.
 * Improved entropy detection
 * Enhanced HTML dashboard
 
-### v3.0
-
-* GitHub Actions integration
-* SARIF export support
-* CI/CD security scanning
-* Custom rule creation
-
 ---
 
 ## Learning Outcomes
