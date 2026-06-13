@@ -37,7 +37,6 @@ def scan_repository(repo_path, rules):
         for file in files:
 
             if file in EXCLUDED_FILES:
-                print(f"Skipping: {file}")
                 continue
                 
             file_path = os.path.join(
