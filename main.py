@@ -5,7 +5,7 @@ from reports.html_report import generate_html_report
 from reports.dashboard import generate_summary
 
 
-findings = run_scan("test_repo")
+findings = run_scan(".")
 
 generate_json_report(findings)
 

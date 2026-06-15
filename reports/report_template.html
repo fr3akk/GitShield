@@ -1,28 +1,141 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>GitShield Security Report</title>
+
+    <title>GitShield Security Dashboard</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
 
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
+            font-family: "Segoe UI", Arial, sans-serif;
+            margin: 30px;
+            background-color: #050816;
+            color: #e5e7eb;
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #94a3b8;
+        }
+
+        .cards {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            flex: 1;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .critical {
+            background-color: #ef4444;
+            color: white;
+        }
+
+        .high {
+            background-color: #f97316;
+            color: white;
+        }
+
+        .medium {
+            background-color: #eab308;
+            color: black;
+        }
+
+        .total {
+            background-color: #06b6d4;
+            color: white;
+        }
+
+        .dashboard-grid {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .panel {
+            flex: 1;
+            background-color: #111827;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .panel h2 {
+            margin-top: 0;
+            color: #06b6d4;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-        }
-
-        th, td {
-            border: 1px solid black;
-            padding: 10px;
-            text-align: left;
+            background-color: #111827;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
 
         th {
-            background-color: #dddddd;
+            background-color: #0f172a;
+            color: #06b6d4;
+            padding: 14px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-top: 1px solid #1f2937;
+        }
+
+        tr:hover {
+            background-color: #172033;
+        }
+
+        .severity-critical {
+            color: #ef4444;
+            font-weight: bold;
+        }
+
+        .severity-high {
+            color: #f97316;
+            font-weight: bold;
+        }
+
+        .severity-medium {
+            color: #eab308;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #64748b;
+        }
+
+        canvas {
+            max-width: 350px;
+            margin: auto;
         }
 
     </style>
@@ -31,44 +144,170 @@
 
 <body>
 
-<h1>GitShield Security Report</h1>
+    <div class="header">
 
-<h2>Summary</h2>
+        <h1>🛡️ GitShield Security Dashboard</h1>
 
-<ul>
-    <li>Critical: {{ critical }}</li>
-    <li>High: {{ high }}</li>
-    <li>Medium: {{ medium }}</li>
-</ul>
+        <p>
+            Automated Secret Detection & Commit Protection
+        </p>
 
-<h2>Findings</h2>
+    </div>
 
-<table>
+    <div class="cards">
 
-<tr>
-    <th>Type</th>
-    <th>Severity</th>
-    <th>Match</th>
-    <th>File</th>
-</tr>
+        <div class="card critical">
+            Critical<br><br>
+            {{ critical }}
+        </div>
 
-{% for finding in findings %}
+        <div class="card high">
+            High<br><br>
+            {{ high }}
+        </div>
 
-<tr>
+        <div class="card medium">
+            Medium<br><br>
+            {{ medium }}
+        </div>
 
-<td>{{ finding.type }}</td>
+        <div class="card total">
+            Total<br><br>
+            {{ total }}
+        </div>
 
-<td>{{ finding.severity }}</td>
+    </div>
 
-<td>{{ finding.match }}</td>
+    <div class="dashboard-grid">
 
-<td>{{ finding.file }}</td>
+        <div class="panel">
 
-</tr>
+            <h2>Severity Distribution</h2>
 
-{% endfor %}
+            <canvas id="severityChart"></canvas>
 
-</table>
+        </div>
+
+        <div class="panel">
+
+            <h2>Scan Statistics</h2>
+
+            <p>
+                <strong>Generated:</strong><br>
+                {{ generated_at }}
+            </p>
+
+            <p>
+                <strong>Files Scanned:</strong><br>
+                {{ files_scanned }}
+            </p>
+
+            <p>
+                <strong>Total Findings:</strong><br>
+                {{ total }}
+            </p>
+
+            <p>
+                <strong>Version:</strong><br>
+                v2.1
+            </p>
+
+        </div>
+
+    </div>
+
+    <h2>Security Findings</h2>
+
+    <table>
+
+        <tr>
+            <th>Type</th>
+            <th>Severity</th>
+            <th>Match</th>
+            <th>File</th>
+        </tr>
+
+        {% for finding in findings %}
+
+        <tr>
+
+            <td>{{ finding.type }}</td>
+
+            <td class="severity-{{ finding.severity.lower() }}">
+                {{ finding.severity }}
+            </td>
+
+            <td>{{ finding.match }}</td>
+
+            <td>{{ finding.file }}</td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <div class="footer">
+
+        GitShield v2.1 • DevSecOps Secret Detection Tool
+
+    </div>
+
+    <script>
+
+        const ctx = document.getElementById(
+            'severityChart'
+        );
+
+        new Chart(ctx, {
+
+            type: 'pie',
+
+            data: {
+
+                labels: [
+                    'Critical',
+                    'High',
+                    'Medium'
+                ],
+
+                datasets: [{
+
+                    data: [
+                        {{ critical }},
+                        {{ high }},
+                        {{ medium }}
+                    ],
+
+                    backgroundColor: [
+                        '#ef4444',
+                        '#f97316',
+                        '#eab308'
+                    ]
+
+                }]
+            },
+
+            options: {
+
+                plugins: {
+
+                    legend: {
+
+                        labels: {
+                            color: '#e5e7eb'
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    </script>
 
 </body>
+
 </html>
