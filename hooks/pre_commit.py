@@ -10,12 +10,15 @@ sys.path.append(
     )
 )
 
-from scanner.gitshield_scanner import run_scan
+from scanner.git_helper import get_staged_files
+from scanner.staged_scanner import scan_staged_files
 
 
 def check_commit():
 
-    findings = run_scan(".")
+    staged_files = get_staged_files()
+
+    findings = scan_staged_files(staged_files)
 
     if findings:
 
