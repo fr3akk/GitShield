@@ -1,3 +1,4 @@
+import sys
 from scanner.gitshield_scanner import run_scan
 
 from reports.json_report import generate_json_report
@@ -27,3 +28,13 @@ print("\nFindings:\n")
 
 for finding in findings:
     print(finding)
+
+if findings:
+
+    print(
+        "\n[!] Secrets detected. Failing scan."
+    )
+
+    sys.exit(1)
+
+sys.exit(0)
