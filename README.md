@@ -8,7 +8,7 @@ GitShield combines regex-based secret detection, entropy analysis, Git pre-commi
 
 ## 🎬 Demo
 
-![GitShield Demo](assets/gitshield-demo.gif)
+![GitShield Demo](assets/Gitshield-Demo.gif)
 
 GitShield automatically blocks commits containing exposed credentials before they enter version control.
 
