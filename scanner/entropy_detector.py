@@ -24,7 +24,7 @@ def calculate_entropy(text):
 
 
 def detect_high_entropy_strings(content,
-                                threshold=3.5,
+                                threshold=3.8,
                                 min_length=20):
 
     findings = []
