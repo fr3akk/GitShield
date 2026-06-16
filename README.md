@@ -77,7 +77,7 @@ The commit is automatically blocked until the secret is removed.
 
 ### Interactive HTML Report
 
-![Security Dashboard](assets/security dashboard.png)
+![Security Dashboard](assets/security-dashboard.png)
 
 Features:
 
