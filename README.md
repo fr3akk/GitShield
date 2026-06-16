@@ -1,118 +1,110 @@
 # GitShield
 
-A Python-based DevSecOps security tool that detects hardcoded secrets and exposed credentials before they are committed to a Git repository.
+🛡️ A Python-based DevSecOps security tool that detects exposed secrets before they reach your Git repository.
 
-GitShield combines regex-based secret detection, entropy analysis, automated reporting, and Git pre-commit hook integration to prevent accidental credential leaks during development.
+GitShield combines regex-based secret detection, entropy analysis, Git pre-commit protection, interactive security dashboards, and GitHub Actions integration to prevent accidental credential leaks throughout the development lifecycle.
 
 ---
 
-## Features
+## 🎬 Demo
+
+![GitShield Demo](assets/gitshield-demo.gif)
+
+GitShield automatically blocks commits containing exposed credentials before they enter version control.
+
+---
+
+## ✨ Features
 
 * Regex-based secret detection
 * Entropy-based secret detection
 * Severity classification (Critical / High / Medium)
-* JSON report generation
-* HTML security report generation
-* Git pre-commit hook integration
+* Git pre-commit hook protection
 * Automatic commit blocking
-* Staged file scanning using Git index
+* Staged-file scanning
+* Interactive HTML security dashboard
+* JSON reporting
+* Secret masking in reports
+* Finding deduplication
+* GitHub Actions CI/CD integration
 * Configurable detection rules
-* Directory and file exclusion support
 
 ---
 
-## Security Impact
-
-GitShield helps prevent exposure of:
-
-* AWS Access Keys
-* GitHub Tokens
-* OpenAI API Keys
-* Hardcoded Passwords
-* API Keys
-* High-Entropy Secrets
-
-By detecting these secrets before they are committed, GitShield reduces the risk of credential leakage and repository compromise.
-
----
-
-## Architecture
+## 🏗️ Architecture
 
 ```text
-git add file.py
-        ↓
-Git Staging Area
-        ↓
+Developer
+    ↓
+git add
+    ↓
 GitShield Pre-Commit Hook
-        ↓
-Retrieve Staged Files
-        ↓
+    ↓
 Regex Detection
-        +
+      +
 Entropy Detection
-        ↓
-Findings Generated
-        ↓
-Allow Commit / Block Commit
+    ↓
+Findings
+    ↓
+Allow / Block Commit
+    ↓
+Push to GitHub
+    ↓
+GitHub Actions Scan
+    ↓
+PASS / FAIL
 ```
 
 ---
 
-## Commit Protection Workflow
-
-GitShield integrates directly with Git pre-commit hooks and scans only staged files before a commit is created.
+## 🚫 Commit Protection
 
 When secrets are detected:
 
 ```text
 [!] GITSHIELD BLOCKED COMMIT
 
-Detected 2 potential secrets:
+Detected 1 potential secret:
 
-[Critical] GitHub Token -> secret.py
-[Medium] High Entropy String -> secret.py
+[Critical] AWS Access Key -> secret.py
 ```
 
-The commit is automatically blocked until the detected secrets are removed.
-
-When no secrets are found:
-
-```text
-[+] GitShield Scan Passed
-```
-
-The commit proceeds normally.
+The commit is automatically blocked until the secret is removed.
 
 ---
 
-## Staged File Scanning
+## 📊 Security Dashboard
 
-GitShield scans only files currently staged for commit.
+### Interactive HTML Report
 
-Workflow:
+![Security Dashboard](assets/professional security dashboard.png)
 
-```text
-git add secret.py
-        ↓
-git diff --cached --name-only
-        ↓
-GitShield
-        ↓
-Scan Staged Files Only
-        ↓
-Allow / Block Commit
-```
+Features:
 
-Benefits:
-
-* Faster scans
-* Reduced false positives
-* Better developer experience
-* Real-world DevSecOps workflow integration
+* Severity distribution visualization
+* Scan statistics
+* Security findings table
+* Professional dark-themed dashboard
+* Secret masking support
 
 ---
 
-## Supported Secret Types
+## ⚙️ GitHub Actions Integration
+
+GitShield automatically scans repositories during CI/CD workflows.
+
+![GitHub Actions](assets/github-actions.png)
+
+Features:
+
+* Scan on push
+* Scan on pull request
+* Automated security enforcement
+* Workflow failure on detected secrets
+
+---
+
+## 🔍 Supported Secret Types
 
 | Secret Type          | Severity |
 | -------------------- | -------- |
@@ -125,164 +117,67 @@ Benefits:
 
 ---
 
-## Detection Techniques
-
-### Regex-Based Detection
-
-GitShield uses predefined patterns to identify known credential formats:
-
-* AWS Access Keys
-* GitHub Tokens
-* OpenAI API Keys
-* Password Assignments
-* API Key Assignments
-
-Example:
-
-```python
-aws_key = "AWS_ACCESS_KEY"
-```
-
-### Entropy-Based Detection
-
-GitShield uses Shannon Entropy analysis to identify randomly generated secrets that may not match predefined patterns.
-
-Example:
-
-```python
-token = "HIGH_ENTROPY_SECRET"
-```
-
----
-
-## Installation
-
-### Clone Repository
+## 🚀 Installation
 
 ```bash
 git clone https://github.com/fr3akk/GitShield.git
 cd GitShield
-```
 
-### Create Virtual Environment
-
-```bash
 python -m venv venv
-```
 
-### Activate Environment
-
-Windows:
-
-```powershell
+# Windows
 venv\Scripts\activate
-```
 
-Linux/macOS:
-
-```bash
+# Linux/macOS
 source venv/bin/activate
-```
 
-### Install Dependencies
-
-```bash
 pip install -r requirements.txt
 ```
 
 ---
 
-## Usage
+## 💻 Usage
 
-### Run Repository Scan
+Run a repository scan:
 
 ```bash
 python main.py
 ```
 
-### Run Pre-Commit Protection
+GitShield will:
 
-```bash
-git commit -m "your commit message"
-```
-
-GitShield will automatically scan staged files and block commits containing exposed secrets.
-
----
-
-## Reporting
-
-### JSON Report
-
-Machine-readable findings for automation and integration.
-
-### HTML Report
-
-Interactive dashboard containing:
-
-* Severity statistics
-* Findings table
-* Security summary
+* Detect exposed credentials
+* Classify findings by severity
+* Generate JSON reports
+* Generate HTML dashboards
 
 ---
 
-## Excluded Directories
-
-GitShield automatically ignores:
-
-```text
-.git
-venv
-__pycache__
-node_modules
-build
-dist
-output
-examples
-```
-
-This improves performance and reduces false positives.
-
----
-
-## Technologies Used
+## 🛠️ Technologies Used
 
 * Python
+* Git Hooks
+* GitHub Actions
 * Regex
 * Shannon Entropy Analysis
 * Jinja2
 * GitPython
-* Git Hooks
+* DevSecOps Automation
 
 ---
 
-## Releases
+## 📈 Project Evolution
 
-* v1.0 – Core Secret Scanner
-* v1.1 – Commit Protection
-* v2.0 – Staged File Scanning
-
----
-
-## Future Roadmap
-
-### v3.0
-
-* GitHub Actions Integration
-* CI/CD Secret Scanning
-* Enhanced HTML Dashboard
-* Finding Deduplication
-
-### v4.0
-
-* SARIF Export Support
-* Custom Detection Rules
-* Enterprise Policy Enforcement
-* Multi-Repository Scanning
+* v1.0 — Core Secret Scanner
+* v1.1 — Commit Protection
+* v2.0 — Staged File Scanning
+* v2.1 — Interactive Security Dashboard
+* v2.2 — Finding Deduplication
+* v3.0 — GitHub Actions CI/CD Integration
 
 ---
 
-## Author
+## 👨‍💻 Author
 
 Ayush (fr3akk)
 
